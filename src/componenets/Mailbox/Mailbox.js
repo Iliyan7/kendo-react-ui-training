@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { process } from '@progress/kendo-data-query';
 import { Grid, GridColumn } from '@progress/kendo-react-grid';
 import { Window } from '@progress/kendo-react-dialogs';
-import Button from '../Shared/Button'
-import Unaothorized from '../Shared/Unaothorized';
+import Button from '../common/Button'
+import Forbidden from '../common/Forbidden';
 import "./Mailbox.css"
 
 const Mailbox = inject('store')(observer(
@@ -88,7 +88,7 @@ const Mailbox = inject('store')(observer(
           </div>
         )
       } else {
-        return <Unaothorized />
+        return <Forbidden />
       }
     }
   })

@@ -4,8 +4,8 @@ import { inject, observer } from 'mobx-react'
 import Mailbox from './componenets/Mailbox';
 import Calendar from './componenets/Calendar';
 import Contacts from './componenets/Contacts';
+import Button from './componenets/common/Button';
 import './App.css';
-import Button from './componenets/Shared/Button';
 
 const App = inject('store')(observer(() => (
   <Router>

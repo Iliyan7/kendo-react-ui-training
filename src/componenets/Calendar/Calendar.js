@@ -6,8 +6,8 @@ import {
   WeekView,
   MonthView
 } from '@progress/kendo-react-scheduler';
-import Button from '../Shared/Button'
-import Unaothorized from '../Shared/Unaothorized';
+import Button from '../common/Button'
+import Forbidden from '../common/Forbidden';
 import './Calendar.css'
 
 const Calendar = inject('store')(observer(
@@ -44,7 +44,7 @@ const Calendar = inject('store')(observer(
           </div>
         );
       } else {
-        return <Unaothorized />
+        return <Forbidden />
       }
     }
   })

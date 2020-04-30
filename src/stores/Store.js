@@ -8,7 +8,9 @@ class Store {
     mailbox = []
     calendar = []
     contacts = []
+    mailboxPageToken = ''
     contactsPageToken = ''
+    calendarPageToken = ''
 
     constructor() {
         this.initClient();
@@ -125,7 +127,7 @@ class Store {
                 })
                 
                 eventRequest.execute((event) => {
-                    console.log(event)
+                    // console.log(event)
 
                     let isAllDay = false
                     let startDate, endDate;

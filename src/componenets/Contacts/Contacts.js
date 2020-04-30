@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { ListView, ListViewHeader } from '@progress/kendo-react-listview';
 import { Avatar } from '@progress/kendo-react-layout';
 import { Pager } from '@progress/kendo-react-data-tools';
-import Button from '../Shared/Button'
-import Unaothorized from '../Shared/Unaothorized';
+import Button from '../common/Button'
+import Forbidden from '../common/Forbidden';
 import './Contacts.css'
 
 const MyHeader = () => {
@@ -85,7 +85,7 @@ const Contacts = inject('store')(observer(
         );
 
       } else {
-        return <Unaothorized />
+        return <Forbidden />
       }
     }
   })
