@@ -103,11 +103,8 @@ class Store {
     }
 
     fetchCalendar() {
-        const currentYear = new Date().getFullYear();
-        
         const parseAdjust = (eventDate) => {
             const date = new Date(eventDate);
-            date.setFullYear(currentYear);
             return date;
         };
 
@@ -130,13 +127,29 @@ class Store {
                 eventRequest.execute((event) => {
                     console.log(event)
 
+                    let isAllDay = false
+                    let startDate, endDate;
+
+                    if(event.start.hasOwnProperty('date')) {
+                        startDate = parseAdjust(event.start.date)
+                        isAllDay = true;
+                    } else {
+                        startDate = parseAdjust(event.start.dateTime)
+                    }
+
+                    if(event.end.hasOwnProperty('date')) {
+                        endDate = parseAdjust(event.end.date)
+                    } else {
+                        endDate = parseAdjust(event.end.dateTime)
+                    }
+
                     const eventData = { 
                         id: event.id,
-                        start: parseAdjust(event.start.dateTime),
+                        start: startDate,
                         startTimezone: null,
-                        end: parseAdjust(event.end.dateTime),
+                        end: endDate,
                         endTimezone: null,
-                        isAllDay: false,
+                        isAllDay: isAllDay,
                         title: event.summary,
                         description: event.description,
                      }

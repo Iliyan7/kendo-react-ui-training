@@ -35,9 +35,9 @@ const Calendar = inject('store')(observer(
             </div>
             <div className="calendar-view">
               <Scheduler data={this.props.store.calendar} defaultDate={displayData}>
-                <DayView />
-                <WeekView />
                 <MonthView />
+                <WeekView />
+                <DayView />
               </Scheduler>
             </div>
 
