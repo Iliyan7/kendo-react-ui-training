@@ -5,32 +5,18 @@ import Mailbox from './componenets/Mailbox';
 import Calendar from './componenets/Calendar';
 import Contacts from './componenets/Contacts';
 import './App.css';
-import '@progress/kendo-theme-material/dist/all.css';
+import Button from './componenets/Shared/Button';
 
-const App = inject('store')(observer(
-  class App extends Component {
-    constructor(props) {
-      super(props);
-    }
-
-    componentDidMount() {
-      
-    }
-
-    render() {
-      return (
-        <Router>
-          <Switch>
-            <Route exact path="/"><Home /></Route>
-            <Route exact path="/mailbox"><Mailbox /></Route>
-            <Route exact path="/calendar"><Calendar /></Route>
-            <Route exact path="/contacts"><Contacts /></Route>
-          </Switch>
-        </Router>
-      )
-    }
-  }
-))
+const App = inject('store')(observer(() => (
+  <Router>
+    <Switch>
+      <Route exact path="/"><Home /></Route>
+      <Route exact path="/mailbox"><Mailbox /></Route>
+      <Route exact path="/calendar"><Calendar /></Route>
+      <Route exact path="/contacts"><Contacts /></Route>
+    </Switch>
+  </Router>
+)))
 
 const Home = inject('store')(observer(
   class Home extends Component {
@@ -58,18 +44,27 @@ const Home = inject('store')(observer(
         <div className="wrapper">
           <div className="box header">
             {!isAuthorized
-              ? <button onClick={this.handleAuthorize}>Authorize</button>
-              : <button onClick={this.handleLogout}>Logout</button>
+              ? <Button label="AUTHROIZE" type="default" onClick={this.handleAuthorize} />
+              : <Button label="LOGOUT" type="fancy" onClick={this.handleLogout} />
             }
           </div>
           <div className="box mailbox">
-            <NavLink to="/mailbox">Mailbox</NavLink>
+            <NavLink to="/mailbox" className="nav-link">
+              <img src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/96/Gmail-icon.png" alt="mailbox-icon"></img>
+              <span>Mailbox</span>
+            </NavLink>
           </div>
           <div className="box calendar">
-            <NavLink to="/calendar">Calendar</NavLink>
+            <NavLink to="/calendar" className="nav-link">
+              <img src="http://icons.iconarchive.com/icons/marcus-roberto/google-play/96/Google-Calendar-icon.png" alt="calenar-icon"></img>
+              <span>Calendar</span>
+            </NavLink>
           </div>
           <div className="box contacts">
-            <NavLink to="/contacts">Contacts</NavLink>
+            <NavLink to="/contacts" className="nav-link">
+              <img src="http://icons.iconarchive.com/icons/graphicloads/100-flat/96/contact-icon.png" alt="contacts-icon"></img>
+              <span>Contacts</span>
+            </NavLink>
           </div>
         </div>
       )

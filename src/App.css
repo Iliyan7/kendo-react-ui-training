@@ -1,11 +1,10 @@
-/* body {
+body {
   background: url("./images/theme.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  margin: 10px;
-} */
+}
 
 .header {
   grid-area: header;
@@ -27,12 +26,32 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: auto;
-  grid-template-rows: 150px auto;
+  grid-template-rows: 200px auto;
   grid-template-areas: "....... header ......." "mailbox calendar contacts";
-  color: #444;
+  justify-items: center;
+  align-items: center;
 }
+
 .box {
-  border-radius: 5px;
+  text-align: center;
   padding: 20px;
-  font-size: 150%;
+  font-size: 32px;
+
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link > span {
+  color: white;
+  text-transform: uppercase;
+  margin-left: 10px;
+  top: 4px;
+  position: relative;
+}
+
+.box > img {
+  width: 96px;
+  height: 96px;
 }
