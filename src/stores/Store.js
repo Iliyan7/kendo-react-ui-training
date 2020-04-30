@@ -32,7 +32,7 @@ class Store {
 
                 if(this.isAuthorized) {
                     this.fetchMailbox()
-                    // this.fetchCalendar()
+                    this.fetchCalendar()
                     this.fetchContacts()
                 }
             });
@@ -103,23 +103,46 @@ class Store {
     }
 
     fetchCalendar() {
+        const currentYear = new Date().getFullYear();
+        
+        const parseAdjust = (eventDate) => {
+            const date = new Date(eventDate);
+            date.setFullYear(currentYear);
+            return date;
+        };
+
         let request = window.gapi.client.calendar.events.list({
             'calendarId': 'primary',
             'orderBy': 'startTime',
-            // 'timeMin': (new Date()).toISOString(),
-            // 'showDeleted': false,
-            // 'singleEvents': true,
-            // 'maxResults': 10,
+            'singleEvents': true,
         })
 
         request.execute((response) => {
-            console.log(response)
-
             const events = response.result.items;
+            this.calendarPageToken = response.nextPageToken;
 
             events.forEach((e) => {
-                const event = { date: e.start.date }
-                this.calendar.push(event)
+                let eventRequest = window.gapi.client.calendar.events.get({
+                    'calendarId': 'primary',
+                    'eventId': e.id
+                })
+                
+                eventRequest.execute((event) => {
+                    console.log(event)
+
+                    const eventData = { 
+                        id: event.id,
+                        start: parseAdjust(event.start.dateTime),
+                        startTimezone: null,
+                        end: parseAdjust(event.end.dateTime),
+                        endTimezone: null,
+                        isAllDay: false,
+                        title: event.summary,
+                        description: event.description,
+                     }
+                    this.calendar.push(eventData)
+
+                })
             })
         })
     }
@@ -144,7 +167,7 @@ class Store {
                 })
 
                 peopleRequest.execute((person) => {
-                    console.log(person.names[0].displayName, person)
+                    // console.log(person.names[0].displayName, person)
                     
                     let name = ''
                     let email = 'n/a'
