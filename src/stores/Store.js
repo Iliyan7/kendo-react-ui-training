@@ -31,19 +31,11 @@ class Store {
 
                 this.user = this.GoogleAuth.currentUser.get();
                 this.setSigninStatus();
-
-                if(this.isAuthorized) {
-                    this.fetchMailbox()
-                    this.fetchCalendar()
-                    this.fetchContacts()
-                }
             });
         });
     }
 
     handleAuthClick() {
-        console.log('handleAuthClick', this.isAuthorized)
-
         if (this.GoogleAuth.isSignedIn.get()) {
             this.GoogleAuth.signOut();
             this.resetData()
@@ -57,9 +49,18 @@ class Store {
     }
 
     setSigninStatus(isSignedIn) {
+        console.log('isAuthorized prop: ', this.isAuthorized, 'isSignedIn: ', this.GoogleAuth.isSignedIn.get());
+
         runInAction(() => {
             this.isAuthorized = this.GoogleAuth.isSignedIn.get() //this.user.hasGrantedScopes('https://www.googleapis.com/auth/gmail.readonly');
         })
+
+        if(this.isAuthorized) {
+            console.log('[authorized] fetch data!')
+            this.fetchMailbox()
+            this.fetchCalendar()
+            this.fetchContacts()
+        }
     }
 
     updateSigninStatus(isSignedIn) {
